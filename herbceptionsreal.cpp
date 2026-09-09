@@ -8,7 +8,6 @@ static void doSqrt(std::span<double> values) throws {
       if (v < 0) throw throws ::std::errc::argument_out_of_domain;
       v = sqrt(v);
    }
-   return;
 }
 
 unsigned herbceptionsRealSqrt(std::span<double> values, unsigned repeat) noexcept {

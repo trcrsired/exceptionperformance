@@ -22,6 +22,8 @@ unsigned herbceptionsSqrt(span<double> values, unsigned repeat) noexcept;
 unsigned herbceptionsFib(unsigned n, unsigned maxDepth) noexcept;
 unsigned herbceptionsRealSqrt(span<double> values, unsigned repeat) noexcept;
 unsigned herbceptionsRealFib(unsigned n, unsigned maxDepth) noexcept;
+unsigned herbceptionsRealOverrideSqrt(span<double> values, unsigned repeat) noexcept;
+unsigned herbceptionsRealOverrideFib(unsigned n, unsigned maxDepth) noexcept;
 unsigned outcomeResultSqrt(span<double> values, unsigned repeat) noexcept;
 unsigned outcomeResultFib(unsigned n, unsigned maxDepth) noexcept;
 
@@ -178,7 +180,7 @@ static vector<unsigned> interpretThreadCounts(string_view desc) {
    return threadCounts;
 }
 
-vector<tuple<const char*, TestedFunctionSqrt, TestedFunctionFib, bool>> tests = {{"baseline", &baselineSqrt, &baselineFib, false}, {"exceptions", &exceptionsSqrt, &exceptionsFib, true}, {"LEAF", &leafResultSqrt, &leafResultFib, true}, {"std::expected", &expectedSqrt, &expectedFib, true}, {"herbceptionemulation", &herbceptionEmulationSqrt, &herbceptionEmulationFib, true}, {"herbceptions", &herbceptionsSqrt, &herbceptionsFib, true}, {"outcome", &outcomeResultSqrt, &outcomeResultFib, true}, {"herbceptionsreal", &herbceptionsRealSqrt, &herbceptionsRealFib, true}};
+vector<tuple<const char*, TestedFunctionSqrt, TestedFunctionFib, bool>> tests = {{"baseline", &baselineSqrt, &baselineFib, false}, {"exceptions", &exceptionsSqrt, &exceptionsFib, true}, {"LEAF", &leafResultSqrt, &leafResultFib, true}, {"std::expected", &expectedSqrt, &expectedFib, true}, {"herbceptionemulation", &herbceptionEmulationSqrt, &herbceptionEmulationFib, true}, {"herbceptions", &herbceptionsSqrt, &herbceptionsFib, true}, {"outcome", &outcomeResultSqrt, &outcomeResultFib, true}, {"herbceptionsreal", &herbceptionsRealSqrt, &herbceptionsRealFib, true}, {"herbceptionsrealoverride", &herbceptionsRealOverrideSqrt, &herbceptionsRealOverrideFib, true}};
 
 // Hook for the experimental lockfree unwinding logic
 #ifdef __linux__
@@ -189,7 +191,7 @@ void (*__libunwind_btreelookup_sync)() = nullptr;
 
 
 int main(int argc, char* argv[]) {
-   vector<unsigned> threadCounts = buildThreadCounts(thread::hardware_concurrency() / 2); // assuming half are hyperthreads. We can override that below
+   vector<unsigned> threadCounts = buildThreadCounts(thread::hardware_concurrency() * 2); // assuming half are hyperthreads. We can override that below
    bool explicitRun = false;
    for (int index = 1; index < argc; ++index) {
       string_view o = argv[index];

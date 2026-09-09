@@ -4,10 +4,10 @@ all: bin/runtests bin/runtests_googlebench
 
 bin/%.o: %.cpp
 	@mkdir -p bin
-	$(CXX) -O3 -std=c++20 -c -W -Wall $(CXXFLAGS-$(basename $@)) -o$@ $<
+	$(CXX) -O3 -std=c++26 -c -W -Wall $(CXXFLAGS-$(basename $@)) -o$@ $<
 
 bin/runtests: bin/main.o bin/exceptions.o bin/leaf.o bin/expected.o bin/herbceptionemulation.o bin/herbceptions.o bin/outcome.o bin/baseline.o
-	$(CXX) -o$@ $^ -lpthread
+	$(CXX) -o$@ $^
 
 bin/benchmark/src/libbenchmark.a:
 	@mkdir -p bin/benchmark

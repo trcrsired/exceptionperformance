@@ -1,3 +1,4 @@
+#include <exception>
 #include "thirdparty/outcome/outcome.hpp"
 #include <cmath>
 #include <span>

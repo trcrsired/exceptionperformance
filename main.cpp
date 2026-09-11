@@ -192,7 +192,7 @@ void (*__libunwind_btreelookup_sync)() = nullptr;
 
 
 int main(int argc, char* argv[]) {
-   vector<unsigned> threadCounts = buildThreadCounts(thread::hardware_concurrency()); // assuming half are hyperthreads. We can override that below
+   vector<unsigned> threadCounts = buildThreadCounts(thread::hardware_concurrency() / 2); // assuming half are hyperthreads. We can override that below
    bool explicitRun = false;
    for (int index = 1; index < argc; ++index) {
       string_view o = argv[index];

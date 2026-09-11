@@ -126,7 +126,7 @@ static void runTests(const vector<tuple<const char*, TestedFunctionSqrt, TestedF
       cout << " threads" << endl;
    };
 
-   const unsigned failureRates[] = {0, 1, 10, 100};
+   const unsigned failureRates[] = {0, 1, 10, 100, 200, 500, 900, 999};
 
    cout << "Testing unwinding performance: sqrt computation with occasional errors" << endl
         << endl;

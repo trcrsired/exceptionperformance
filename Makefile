@@ -1,7 +1,8 @@
 CXX?=g++
 LIBHERBCEPTIONSPATH?=
 
-all: bin/runtests bin/runtests_googlebench
+all: bin/runtests
+#all: bin/runtests bin/runtests_googlebench
 
 bin/%.o: %.cpp
 	@mkdir -p bin
@@ -16,7 +17,8 @@ bin/runtests: bin/main.o bin/exceptions.o bin/leaf.o bin/expected.o bin/herbcept
 #	cmake --build bin/benchmark --config Release --target benchmark
 
 #bin/runtests_googlebench: bin/main_googlebench.o bin/exceptions.o bin/leaf.o bin/expected.o bin/herbceptionemulation.o bin/herbceptions.o bin/herbceptionsreal.o bin/outcome.o bin/baseline.o bin/benchmark/src/libbenchmark.a
-	$(CXX) -o$@ $^ $(LDFLAGS-$(basename $@))
+# $(CXX) -o$@ $^ $(LDFLAGS-$(basename $@))
+
 
 CXXFLAGS-bin/leaf:=-w -fno-exceptions -O2 -DNDEBUG -DBOOST_LEAF_CFG_DIAGNOSTICS=0 -DBOOST_LEAF_CFG_CAPTURE=0
 CXXFLAGS-bin/herbceptionemulation:=-fno-exceptions
@@ -25,5 +27,5 @@ CXXFLAGS-bin/herbceptionsreal:=-fno-exceptions -fno-rtti -fherbceptions -lherbce
 CXXFLAGS-bin/herbceptionsrealoverride:=-fno-exceptions -fno-rtti -fherbceptions -lherbceptions -L$(LIBHERBCEPTIONSPATH)/lib -I$(LIBHERBCEPTIONSPATH)/include
 CXXFLAGS-bin/outcome:=-fno-exceptions
 CXXFLAGS-bin/baseline:=-fno-exceptions
-CXXFLAGS-bin/main_googlebench:=-Ithirdparty/benchmark/include
-LDFLAGS-bin/runtests_googlebench:=-Lbin/benchmark/src -lbenchmark -L$(LIBHERBCEPTIONSPATH)/lib -lherbceptions
+#CXXFLAGS-bin/main_googlebench:=-Ithirdparty/benchmark/include
+#LDFLAGS-bin/runtests_googlebench:=-Lbin/benchmark/src -lbenchmark -L$(LIBHERBCEPTIONSPATH)/lib -lherbceptions

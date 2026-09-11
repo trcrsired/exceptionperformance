@@ -2,7 +2,7 @@
 #include <span>
 #include <herbceptions/error>
 
-int domainsingle;
+static inline constexpr ::std::error_domain_singleton domainsingle{};
 
 enum class test_out_of_domain{val=5};
 
@@ -13,7 +13,7 @@ class error_domain<test_out_of_domain>
 {
 public:
 	using errc_type = test_out_of_domain;
-	static inline constexpr void const* domain() noexcept
+	static inline constexpr ::std::error_domain_singleton const* domain() noexcept
 	{
 		return &domainsingle;
 	}
